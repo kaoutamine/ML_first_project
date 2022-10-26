@@ -94,12 +94,13 @@ def compute_loss(y, tx, w):
     # return calculate_mae(e)
 
 
-def mean_squared_error_sgd(y, tx, initial_w, batch_size, max_iters, gamma):
+def mean_squared_error_sgd(y, tx, initial_w, max_iters, gamma):
     """Stochastic gradient descent."""
     # Define parameters to store w and loss
     ws = [initial_w]
     losses = []
     w = initial_w
+    batch_size = 100
 
     for n_iter in range(max_iters):
         for y_batch, tx_batch in batch_iter(y, tx, batch_size=batch_size, num_batches=1):
@@ -422,7 +423,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
     w = np.zeros((tx.shape[1], 1))
 
     # start the logistic regression
-    for iter in range(max_iter):
+    for iter in range(max_iters):
         # get loss and update w.
         loss, w = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
         # log info
