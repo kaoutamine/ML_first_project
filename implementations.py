@@ -246,7 +246,7 @@ def penalized_logistic_regression(y, tx, w, lambda_):
 
     """
 
-    loss =  (w.T@w)[0][0] * lambda_ 
+    loss = calculate_loss(y, tx, w) + (w.T@w)[0][0] * lambda_ 
     gradient = compute_gradient(y, tx, w) + 2 * lambda_ * w
     return loss,gradient
 
@@ -280,7 +280,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
 
     # build tx
     tx = np.c_[np.ones((y.shape[0], 1)), x]
-    w = np.zeros((tx.shape[1], 1))
+    w = inital_w
 
     # start the logistic regression
     for iter in range(max_iters):
