@@ -274,12 +274,12 @@ def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
 
 def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
     # init parameters
-    
+    y[y == -1] = 0 #because we have to have values between 0 and 1
+    y= y.reshape(y.shape[0],1)
+
     threshold = 1e-8
     losses = []
 
-    # build tx
-    tx = np.c_[np.ones((y.shape[0], 1)), x]
     w = inital_w
 
     # start the logistic regression
