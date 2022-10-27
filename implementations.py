@@ -209,6 +209,22 @@ def learning_by_gradient_descent(y, tx, w, gamma):
 
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
+    """
+    Does logistic regression. 
+    Fits output w using gradient descent with a logistic loss function. 
+
+    Args:
+        y:  shape=(N, 1)
+        tx: shape=(N, D)
+        initial_w:  shape=(D, 1) 
+        max_iters : int 
+        gamma: float
+
+    Returns:
+        w: shape=(D, 1) 
+        loss: scalar number
+
+    """
     y[y == -1] = 0 #because we have to have values between 0 and 1
     threshold = 1e-8
     y= y.reshape(y.shape[0],1)
@@ -275,6 +291,24 @@ def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
 
 
 def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
+    """
+    Does regulized logistic regression. 
+    Fits output w using gradient descent with a logistic loss function,
+    but taking into account the complexity of the model. 
+
+    Args:
+        y:  shape=(N, 1)
+        x: shape=(N, D)
+        lambda_ : scalar 
+        initial_w:  shape=(D, 1) 
+        max_iters : int 
+        gamma: float
+
+    Returns:
+        w: shape=(D, 1) 
+        loss: scalar number
+
+    """
     # init parameters
     y[y == -1] = 0 #because we have to have values between 0 and 1
     y= y.reshape(y.shape[0],1)
