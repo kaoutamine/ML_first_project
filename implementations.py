@@ -221,10 +221,13 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
         losses.append(loss)
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
-            
-    loss = losses.pop()
+    
+    
     if max_iters == 0 :
         loss, _ = learning_by_gradient_descent(y, tx, w, gamma)
+    else:
+        loss = losses.pop()
+
         
     return w, loss 
 
