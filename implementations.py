@@ -316,12 +316,13 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
     threshold = 1e-8
     losses = []
 
+    tx = np.c_[np.ones((y.shape[0], 1)), x]
     w = inital_w
 
     # start the logistic regression
     for iter in range(max_iters):
         # get loss and update w.
-        loss, w = learning_by_penalized_gradient(y, x, w, gamma, lambda_)
+        loss, w = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
         # log info
         if iter % 100 == 0:
             print("Current iteration={i}, loss={l}".format(i=iter, l=loss))
@@ -332,7 +333,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
     if max_iters == 0 :
-        loss, _ = learning_by_penalized_gradient(y, x, w, gamma, lambda_)
+        loss, _ = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
     else :
         loss = losses.pop()
     return w, loss
