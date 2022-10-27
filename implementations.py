@@ -312,7 +312,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
 
     w = inital_w
     #TODO find a better way to define tx. This does not seem right. 
-    tx = np.c_[np.ones((y.shape[0], 1)), x]
+    tx = x
     
 
     # start the logistic regression
