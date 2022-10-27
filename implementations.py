@@ -306,10 +306,10 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
 
     """
     # init parameters
-
+    y[y == -1] = 0 #because we have to have values between 0 and 1
+    y= y.reshape(y.shape[0],1)
     threshold = 1e-8
     losses = []
-
     w = inital_w
     #Find a better way to define tx. This does not seem right. 
     tx = x
