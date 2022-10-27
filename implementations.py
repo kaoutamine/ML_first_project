@@ -156,7 +156,6 @@ def sigmoid(t):
     >>> sigmoid(np.array([0.1, 0.1]))
     array([0.52497919, 0.52497919])
     """
-    t = t.astype(float)
     return 1/(1 + np.exp(-t))
 
 def calculate_loss(y, tx, w):
