@@ -256,7 +256,7 @@ def penalized_logistic_regression(y, tx, w, lambda_):
     """
 
     loss = calculate_loss(y, tx, w) 
-    gradient = compute_gradient(y, tx, w) + 2 * lambda_ * w
+    gradient = compute_gradient_sig(y, tx, w) + 2 * lambda_ * w
     return loss,gradient
 
 def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
