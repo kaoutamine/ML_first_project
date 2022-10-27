@@ -311,7 +311,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
     losses = []
 
     w = inital_w
-    #TODO find a better way to define tx. This does not seem right. 
+    #Find a better way to define tx. This does not seem right. 
     tx = x
     
 
