@@ -305,6 +305,12 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
         loss: scalar number
 
     """
+
+        #### FIND_BUG ####
+
+    # sigmoid function fails because we somehow send it something that is not 
+    # a valid ndarray... A list maybe ? We need to look closer.
+
     # init parameters
     y[y == -1] = 0 #because we have to have values between 0 and 1
     y= y.reshape(y.shape[0],1)
