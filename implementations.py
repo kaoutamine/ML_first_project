@@ -241,10 +241,7 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
             break
     
     
-    if max_iters == 0 :
-        loss, _ = learning_by_gradient_descent(y, tx, w, gamma)
-    else:
-        loss = losses.pop()
+    loss, _ = learning_by_gradient_descent(y, tx, w, gamma)
 
         
     return w, loss 
@@ -331,8 +328,6 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
         losses.append(loss)
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
-    if max_iters == 0 :
-        loss, _ = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
-    else :
-        loss = losses.pop()
+    
+    loss, _ = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
     return w, loss
