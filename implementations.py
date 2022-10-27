@@ -294,7 +294,7 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
     if max_iters == 0 :
-        loss, _ = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
+        loss, _ = learning_by_penalized_gradient(y, x, w, gamma, lambda_)
     else :
         loss = losses.pop()
     return w, loss
