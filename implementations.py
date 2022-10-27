@@ -218,7 +218,7 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
     for _ in range(max_iters):
         # get loss and update w.
         loss, w = learning_by_gradient_descent(y, tx, w, gamma)
-        
+
     if max_iters == 0 :
         loss, _ = learning_by_gradient_descent(y, tx, w, gamma)
         
@@ -237,22 +237,11 @@ def penalized_logistic_regression(y, tx, w, lambda_):
         loss: scalar number
         gradient: shape=(D, 1)
 
-    >>> y = np.c_[[0., 1.]]
-    >>> tx = np.arange(6).reshape(2, 3)
-    >>> w = np.array([[0.1], [0.2], [0.3]])
-    >>> lambda_ = 0.1
-    >>> loss, gradient = penalized_logistic_regression(y, tx, w, lambda_)
-    >>> round(loss, 8)
-    0.63537268
-    >>> gradient 
-    array([[-0.08370763],
-           [ 0.2467104 ],
-           [ 0.57712843]])
     """
     num_samples = y.shape[0]
-    loss = calculate_loss(y, tx, w) + lambda_ * w.T@w
+    loss = calculate_loss(y, tx, w) 
     gradient = compute_gradient(y, tx, w) + 2 * lambda_ * w
-    return loss[0][0],gradient
+    return loss,gradient
 
 def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
     """
@@ -270,19 +259,6 @@ def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
         loss: scalar number
         w: shape=(D, 1)
 
-    >>> np.set_printoptions(8)
-    >>> y = np.c_[[0., 1.]]
-    >>> tx = np.arange(6).reshape(2, 3)
-    >>> w = np.array([[0.1], [0.2], [0.3]])
-    >>> lambda_ = 0.1
-    >>> gamma = 0.1
-    >>> loss, w = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
-    >>> round(loss, 8)
-    0.63537268
-    >>> w
-    array([[0.10837076],
-           [0.17532896],
-           [0.24228716]])
     """
     loss, g = penalized_logistic_regression(y,tx,w,lambda_)
     w = w - gamma*g
