@@ -150,13 +150,8 @@ def sigmoid(t):
 
     Returns:
         scalar or numpy array
-
-    >>> sigmoid(np.array([0.1]))
-    array([0.52497919])
-    >>> sigmoid(np.array([0.1, 0.1]))
-    array([0.52497919, 0.52497919])
     """
-    return 1/(1 + np.exp(-t))
+    return 1.0/(1.0 + np.exp(-t))
 
 def calculate_loss(y, tx, w):
     """compute the cost by negative log likelihood.
