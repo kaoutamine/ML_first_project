@@ -219,6 +219,8 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
         # get loss and update w.
         loss, w = learning_by_gradient_descent(y, tx, w, gamma)
         losses.append(loss)
+        #Stopping criterium
+        # IMO the error should be here, we should look at losses array 
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
     
@@ -290,6 +292,8 @@ def reg_logistic_regression(y, x, lambda_, inital_w, max_iters, gamma):
         if iter % 100 == 0:
             print("Current iteration={i}, loss={l}".format(i=iter, l=loss))
         # converge criterion
+        # IMO the error should be here, we should look at losses array 
+        # Also, found weird error about np.ndarray not having exp of 0 ? Might need to check sigmoid
         losses.append(loss)
         if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
             break
