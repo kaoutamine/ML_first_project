@@ -158,10 +158,32 @@ def sigmoid(t):
     """
     return 1/(1 + np.exp(-t))
 
+def calculate_loss(y, tx, w):
+    """compute the cost by negative log likelihood.
+
+    Args:
+        y:  shape=(N, 1)
+        tx: shape=(N, D)
+        w:  shape=(D, 1) 
+
+    Returns:
+        a non-negative loss
+
+    """
+    assert y.shape[0] == tx.shape[0]
+    assert tx.shape[1] == w.shape[0]
+
+    
+    sig = sigmoid(tx@w)
+    
+    term1 = y.T@np.log(sig)
+    term2 = (1- y).T @ np.log(1 - sig)
+    loss = -(term1 +term2)/y.shape[0]
+    return loss[0][0]
 
 
 def compute_gradient_sig(y,tx,w):
-     return tx.T.dot(sigmoid(tx.dot(w))- y)
+     return tx.T@(sigmoid(tx@w)-y)/y.shape[0]
 
 def learning_by_gradient_descent(y, tx, w, gamma):
     """
@@ -185,41 +207,18 @@ def learning_by_gradient_descent(y, tx, w, gamma):
     return loss,w
 
 
-def calculate_loss(y, tx, w):
-    
-    sig = sigmoid(tx.dot(w))
-    
-    cost =  - (1-y).T.dot(np.log(1-sig)) - y.T.dot(np.log(sig))
-    return cost
-
-
-
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
     y[y == -1] = 0 #because we have to have values between 0 and 1
     threshold = 1e-8
-    losses = []
     y= y.reshape(y.shape[0],1)
     w = initial_w  
-    print("THE MAX ITERATION VALUE IS ")
-    print(max_iters)
+    loss = 0 
     # start the logistic regression
     for _ in range(max_iters):
-        print("DUSFHAISDHFDSAHFDIASFDHSAFDHAIFDASHFSIH")
         # get loss and update w.
         loss, w = learning_by_gradient_descent(y, tx, w, gamma)
-        print("done learning")
         
-        losses.append(loss)
-        if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
-            print("breaking")
-            break
-    print("final weight")
-    print(w)
-    print("final losses")
-    print(losses)
-    loss = losses[-1][0]
-    print(loss)
     return w, loss 
 
 def penalized_logistic_regression(y, tx, w, lambda_):
